@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Customer_sitesController;
+use App\Http\Controllers\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("questions",[QuestionController::class,'index']);
 Route::get("projects",[ProjectController::class,'index']);
 Route::get("customer_sites",[Customer_sitesController::class,'index']);
+Route::get("customers",[CustomerController::class,'index']);

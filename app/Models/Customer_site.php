@@ -17,8 +17,11 @@ class Customer_site extends Model
         'Structure',
         'Lieu',
         'Customer_Id',
-        
-
-
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'Customer_Id', 'id');
+    }
+    
 }
