@@ -28,7 +28,7 @@ class Customer extends Model
 
     public function customer_sites()
     {
-        return $this->hasMany(Customer_site::class, 'Customer_Id');
+        return $this->hasMany(Customer_site::class);
     }
 
     public function projects()

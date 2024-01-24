@@ -18,8 +18,9 @@ class CreateCustomerSitesTable extends Migration
             $table->integer('Numero_site');
             $table->string('Structure');
             $table->string('Lieu');
-            $table->integer('Customer_Id');
- 
+           
+            $table->unsignedBigInteger('Customer_Id');
+            $table->foreign('Customer_Id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
