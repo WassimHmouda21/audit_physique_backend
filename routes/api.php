@@ -6,6 +6,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Customer_sitesController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CategorieController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,4 +27,5 @@ Route::get("projects",[ProjectController::class,'index']);
 Route::get("customer_sites",[Customer_sitesController::class,'index']);
 // Route for getSitebyCustomerId method
 Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
+Route::get("categories",[CategorieController::class,'index']);
 Route::get("customers",[CustomerController::class,'index']);
