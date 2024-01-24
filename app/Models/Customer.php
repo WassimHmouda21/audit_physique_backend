@@ -35,4 +35,6 @@ class Customer extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+   
 }

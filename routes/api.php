@@ -24,4 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("questions",[QuestionController::class,'index']);
 Route::get("projects",[ProjectController::class,'index']);
 Route::get("customer_sites",[Customer_sitesController::class,'index']);
+// Route for getSitebyCustomerId method
+Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
 Route::get("customers",[CustomerController::class,'index']);

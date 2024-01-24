@@ -21,7 +21,7 @@ class CreateCustomerSitesTable extends Migration
            
             $table->unsignedBigInteger('Customer_Id');
             $table->foreign('Customer_Id')->references('id')->on('customers')->onDelete('cascade');
-            $table->timestamps();
+      
         });
     }
 

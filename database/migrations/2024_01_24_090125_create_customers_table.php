@@ -32,7 +32,6 @@ class CreateCustomersTable extends Migration
             // Foreign key column for the self-referencing relationship
 
     
-            $table->timestamps();
         });
     }
     
