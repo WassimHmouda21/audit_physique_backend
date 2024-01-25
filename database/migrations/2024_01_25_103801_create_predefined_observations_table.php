@@ -16,8 +16,9 @@ class CreatePredefinedObservationsTable extends Migration
         Schema::create('predefined_observations', function (Blueprint $table) {
             $table->id();
             $table->text('objet');
-            $table->unsignedBigInteger('question');
-            $table->foreign('question')->references('id')->on('questions')->onDelete('cascade');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            
         });
     }
 

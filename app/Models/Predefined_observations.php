@@ -7,24 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Predefined_observations extends Model
 {
-    use HasFactory;
-
-    protected $table = 'images';
-
-    protected $fillable = [
-        'id',
-        'objet',
-        'question',
-       
-    ];
-
-    public function question()
-    {
-        return $this->belongsTo(Question::class, 'reponse', 'id');
-    }
-
-    public function mappingreponsespredefinedobs()
-    {
-        return $this->hasMany(Project::class);
-    }
+        use HasFactory;
+    
+        protected $table = 'predefined_observations';  
+        protected $fillable = [
+            'id',
+            'objet',
+            'question_id',
+        ];
+    
+        public function question()
+        {
+            return $this->belongsTo(Question::class, 'question_id', 'id');
+        }
+    
+        public function mappingreponsespredefinedobs()
+        {
+            return $this->hasMany(Mappingreponsespredefinedobs::class);
+        }
+    
+    
+   
 }

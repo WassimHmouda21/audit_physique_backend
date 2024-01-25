@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Customer_sitesController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\Predefined_observationsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,3 +30,7 @@ Route::get("customer_sites",[Customer_sitesController::class,'index']);
 Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
 Route::get("categories",[CategorieController::class,'index']);
 Route::get("customers",[CustomerController::class,'index']);
+// Route definition in routes/api.php or web.php
+// routes/api.php or web.php
+Route::get('/predefined_observation/{question}', [Predefined_observationsController::class, 'getobservationsbyQuestion']);
+

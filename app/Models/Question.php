@@ -7,33 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    use HasFactory;
-
-    protected $table = 'questions';
-
-    protected $fillable = [
-        'id',
-        'ordre',
-        'Ref',
-        'Question',
-        'categorie'
-
-
-    ];
-
+        use HasFactory;
     
-    public function reponses()
-    {
-        return $this->hasMany(Customer_site::class);
+        protected $table = 'questions';
+    
+        protected $fillable = [
+            'id',
+            'ordre',
+            'Ref',
+            'Question',
+            'categorie',
+        ];
+    
+        public function reponses()
+        {
+            return $this->hasMany(Customer_site::class, 'question', 'id');
+        }
+    
+        public function predefined_observations()
+        {
+            return $this->hasMany(Predefined_observations::class, 'question_id', 'id');
+        }
+    
+        public function categories()
+        {
+            return $this->belongsTo(Categorie::class, 'categorie', 'id');
+        }
     }
-
-    public function predefined_observations()
-    {
-        return $this->hasMany(Project::class);
-    }
-
-    public function categories()
-    {
-        return $this->belongsTo(Categorie::class, 'categorie', 'id');
-    }
-}
+    
+ 
