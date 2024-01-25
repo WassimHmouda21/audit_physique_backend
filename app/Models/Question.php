@@ -20,4 +20,20 @@ class Question extends Model
 
 
     ];
+
+    
+    public function reponses()
+    {
+        return $this->hasMany(Customer_site::class);
+    }
+
+    public function predefined_observations()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Categorie::class, 'categorie', 'id');
+    }
 }
