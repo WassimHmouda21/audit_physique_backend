@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer_sitesController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\Predefined_observationsController;
+use App\Http\Controllers\ReponseController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,4 +34,4 @@ Route::get("customers",[CustomerController::class,'index']);
 // Route definition in routes/api.php or web.php
 // routes/api.php or web.php
 Route::get('/predefined_observation/{question}', [Predefined_observationsController::class, 'getobservationsbyQuestion']);
-
+Route::put('/reponses/{id}', [ReponseController::class, 'putReponsebyId']);

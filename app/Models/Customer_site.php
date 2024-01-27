@@ -19,6 +19,12 @@ class Customer_site extends Model
         'Customer_Id',
     ];
 
+
+    public function reponse()
+    {
+        return $this->hasMany(reponse::class);
+    }
+    
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'Customer_Id', 'id');

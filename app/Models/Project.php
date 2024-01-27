@@ -24,8 +24,16 @@ class Project extends Model
         'Preuve'
     ];
 
+
+    public function reponse()
+    {
+        return $this->hasMany(reponse::class);
+    }
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
+
+    
+  
 }

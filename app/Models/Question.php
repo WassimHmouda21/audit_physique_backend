@@ -21,9 +21,9 @@ class Question extends Model
     
         public function reponses()
         {
-            return $this->hasMany(Customer_site::class, 'question', 'id');
+            return $this->hasMany(Reponse::class);
         }
-    
+
         public function predefined_observations()
         {
             return $this->hasMany(Predefined_observations::class, 'question_id', 'id');
