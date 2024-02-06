@@ -19,8 +19,8 @@ class Customer extends Model
         'Description',
         'SecteurActivite',
         'Categorie',
-        'Site Web',
-        'Adresse mail', // Corrected typo here
+        'Site_Web',
+        'Adresse_mail', // Corrected typo here
         'Organigramme',
         'Network_Design',
         'Type'

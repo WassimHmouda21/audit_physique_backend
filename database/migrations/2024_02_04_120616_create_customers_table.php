@@ -24,13 +24,13 @@ class CreateCustomersTable extends Migration
             $table->text('Description');
             $table->string('SecteurActivite');
             $table->string('Categorie');
-            $table->string('Site Web');
-            $table->string('Addresse mail');
+            $table->string('Site_Web');
+            $table->string('Adresse_mail');
             $table->string('Organigramme');
             $table->string('Network_Design');
             $table->string('Type');
             // Foreign key column for the self-referencing relationship
-
+            $table->timestamps();
     
         });
     }
