@@ -244,4 +244,12 @@ class CustomerController extends Controller
     return response()->json(['message' => 'Customer created successfully', 'customer' => $customer], 201);
 }
 
+
+    public function getCustomerByID($id){
+        $customer = Customer::find($id);
+        if(is_null($customer)){
+            return response()->json('Customer not found!', 404);
+        }
+        return response()->json($customer, 200);
+    }
 }
