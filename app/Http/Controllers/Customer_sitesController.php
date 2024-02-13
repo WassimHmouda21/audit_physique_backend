@@ -46,4 +46,15 @@ class Customer_sitesController extends Controller
             return response()->json(['status' => 404, 'message' => 'No customer sites found for the given Customer_Id'], 404);
         }
     }
+
+
+    public function getCustomerSiteByID($id){
+        $customer_sites = Customer_site::find($id);
+        if(is_null($customer_sites)){
+            return response()->json('Customer Site not found!', 404);
+        }
+        return response()->json($customer_sites, 200);
+    }
+
+
 }
