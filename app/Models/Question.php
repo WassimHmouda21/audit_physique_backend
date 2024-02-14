@@ -16,7 +16,7 @@ class Question extends Model
             'ordre',
             'Ref',
             'Question',
-            'categorie',
+            'categorie_id',
         ];
     
         public function reponses()
@@ -31,7 +31,7 @@ class Question extends Model
     
         public function categories()
         {
-            return $this->belongsTo(Categorie::class, 'categorie', 'id');
+            return $this->belongsTo(Categorie::class, 'categorie_id', 'id');
         }
     }
     

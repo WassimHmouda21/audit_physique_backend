@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get("/questions", [QuestionController::class, 'index']);
+Route::get('/questions/{categorie_id}', [QuestionController::class, 'getQuestionbyCategorie']);
 Route::get("/projects", [ProjectController::class, 'index']);
 Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 

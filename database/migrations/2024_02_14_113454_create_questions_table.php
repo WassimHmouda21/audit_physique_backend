@@ -19,8 +19,8 @@ class CreateQuestionsTable extends Migration
             $table->string('Ref');
             $table->text('Question');
                 
-            $table->unsignedBigInteger('categorie');
-            $table->foreign('categorie')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('categorie_id');
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
