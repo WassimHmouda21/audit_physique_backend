@@ -32,6 +32,7 @@ Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
 Route::get('/customer_site/{id}', [Customer_sitesController::class, 'getCustomerSiteByID']);
 Route::get("categories",[CategorieController::class,'index']);
+Route::get("categories/{id}",[CategorieController::class,'getCategorieByID']);
 // Show the form to create a new customer
 
 

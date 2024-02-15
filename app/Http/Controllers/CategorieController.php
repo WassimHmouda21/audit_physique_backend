@@ -25,4 +25,12 @@ class CategorieController extends Controller
 
         }
       }
+
+      public function getCategorieByID($id){
+        $categories = Categorie::find($id);
+        if(is_null($categories)){
+            return response()->json('Categorie not found!', 404);
+        }
+        return response()->json($categories, 200);
+    }
 }
