@@ -17,8 +17,8 @@ class CreateReponsesTable extends Migration
             $table->id();          
             $table->unsignedBigInteger('projet');
             $table->foreign('projet')->references('id')->on('projects')->onDelete('cascade');
-            $table->unsignedBigInteger('question');
-            $table->foreign('question')->references('id')->on('questions')->onDelete('cascade');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->integer('conformite');
             $table->text('commentaire');
             $table->unsignedBigInteger('site');

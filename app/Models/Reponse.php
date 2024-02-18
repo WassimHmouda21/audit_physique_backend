@@ -14,7 +14,7 @@ class Reponse extends Model
     protected $fillable = [
         'id',
         'projet',
-        'question',
+        'question_id',
         'conformite',
         'commentaire',
         'site',
