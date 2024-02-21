@@ -93,7 +93,37 @@ class ReponseController extends Controller
     }
 }
 
-    
+
+public function getResponseByQuestionId($question_id)
+    {
+        // Find the customer by ID
+        $question = Question::find($question_id);
+
+        if (!$question) {
+            // Handle the case where the customer is not found
+            return response()->json(['status' => 404, 'message' => 'Question not found'], 404);
+        }
+
+        // Retrieve customer_sites associated with the customer
+        $reponses = $question->reponses;
+
+        if ($reponses->count() > 0) {
+            return response()->json(['status' => 200, 'reponses' => $reponses], 200);
+        } else {
+            return response()->json(['status' => 404, 'message' => 'No reponses found for the given question_id'], 404);
+        }
+    }
+
+
+// public function getResponseByQuestionId($question_id){
+//     $reponses = Reponse::find($question_id);
+//     if(is_null($reponses)){
+//         return response()->json('Reponse not found!', 404);
+//     }
+//     return response()->json($reponses, 200);
+// }
+
+
     
     // public function putReponsebyQuestion($question_id)
     // {

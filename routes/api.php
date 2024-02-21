@@ -53,3 +53,4 @@ Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage
 Route::get('/predefined_observation/{question}', [Predefined_observationsController::class, 'getobservationsbyQuestion']);
 Route::put('/reponses/{id}', [ReponseController::class, 'putReponsebyId']);
 Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putResponseByQuestionId']);
+Route::get('/displayreponse/{question_id}', [ReponseController::class, 'getResponseByQuestionId']);
