@@ -13,13 +13,13 @@ class Image extends Model
 
     protected $fillable = [
         'id',
-        'reponse',
+        'reponse_id',
         'Path',
        
     ];
 
     public function reponse()
     {
-        return $this->belongsTo(Reponse::class, 'reponse', 'id');
+        return $this->belongsTo(Reponse::class, 'reponse_id', 'id');
     }
 }
