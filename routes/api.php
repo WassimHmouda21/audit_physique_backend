@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\Predefined_observationsController;
 use App\Http\Controllers\ReponseController;
+use App\Http\Controllers\ImagesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,6 +35,7 @@ Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'ge
 Route::get('/customer_site/{id}', [Customer_sitesController::class, 'getCustomerSiteByID']);
 Route::get("categories",[CategorieController::class,'index']);
 Route::get("categories/{id}",[CategorieController::class,'getCategorieByID']);
+Route::resource('imageadd', 'Api\ImageController@addimage');
 // Show the form to create a new customer
 
 
@@ -50,7 +52,7 @@ Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('c
 Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
 Route::get('/customer/{id}',[CustomerController::class, 'getCustomerByID']);
 Route::get('/customerpage', [CustomerController::class, 'display'])->name('customer.display');
-Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage');
+Route::post('/addIma', [ImagesController::class, 'addImage']);
 Route::get('/predefined_observation/{question}', [Predefined_observationsController::class, 'getobservationsbyQuestion']);
 Route::put('/reponses/{id}', [ReponseController::class, 'putReponsebyId']);
 Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putResponseByQuestionId']);
