@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Image; 
+use App\Models\Reponse;
+
 class ImagesController extends Controller
 {
     // public function addimage(Request $request)
@@ -23,19 +25,73 @@ class ImagesController extends Controller
     // }
 
     public function addimage(Request $request)
-{
-    $image = new Image;
+    {
+        if ($request->hasFile('image')) {
+            // Save the image to the assets directory
+            $imageName = time().'.'.$request->image->getClientOriginalExtension();
+            $path = public_path('assets/');
+          
+            $request->image->move($path, $imageName);
+        
+            // Create a new Image instance
+            $image = new Image;
+            $image->Path = 'assets/' . $imageName; // Adjust path if necessary
+            // $image->reponse_id = 1; // Set the response_id to 1 by default
+            $image->reponse_id = $request->reponse_id;
+            $image->save();
+        
+            return response()->json(['message' => 'Image uploaded successfully'], 200);
+        }
+        
+        return response()->json(['error' => 'No image uploaded'], 400);
+    }
+    
 
-    if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('images');
-        $image->Path = $path;
-        // Set the reponse_id to 1 by default
-        $image->reponse_id = 1;
-        $image->save();
-        return response()->json(['message' => 'Image uploaded successfully'], 200);
+    
+
+//     public function addimage(Request $request)
+// {
+//     $image = new Image;
+
+//     if ($request->hasFile('image')) {
+//         $path = $request->file('image')->store('images');
+//         $image->Path = $path;
+//         // Set the reponse_id to 1 by default
+//         $image->reponse_id = 1;
+//         $image->save();
+//         return response()->json(['message' => 'Image uploaded successfully'], 200);
+//     }
+
+//     return response()->json(['error' => 'No image uploaded'], 400);
+// }
+
+public function displayimage()
+{
+    // $customers = Customer::all();
+    // return view('customerform')->with('customers', $customers);
+    $images = Image::all();
+    //return view('customer.index', compact('customers'));
+    return response()->json([
+        'images' => $images ],200);
+}
+public function getImagebyReponseId($reponse_id)
+{
+    // Find the customer by ID
+    $reponse = Reponse::find($reponse_id);
+
+    if (!$reponse) {
+        // Handle the case where the customer is not found
+        return response()->json(['status' => 404, 'message' => 'Customer not found'], 404);
     }
 
-    return response()->json(['error' => 'No image uploaded'], 400);
+    // Retrieve customer_sites associated with the customer
+    $images = $reponse->images;
+
+    if ($images->count() > 0) {
+        return response()->json(['status' => 200, 'images' => $images], 200);
+    } else {
+        return response()->json(['status' => 404, 'message' => 'No images found for the given reponseId'], 404);
+    }
 }
 
 }

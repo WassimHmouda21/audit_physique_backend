@@ -53,9 +53,12 @@ Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('c
 Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
 Route::get('/customer/{id}',[CustomerController::class, 'getCustomerByID']);
 Route::get('/customerpage', [CustomerController::class, 'display'])->name('customer.display');
+Route::get('/imageshow',[ImagesController::class, 'displayimage']);
 // Route::post('/addIma', [ImagesController::class, 'addImage']);
 Route::middleware(HandleCors::class)->post('/addIma', [ImagesController::class, 'addImage']);
 Route::get('/predefined_observation/{question}', [Predefined_observationsController::class, 'getobservationsbyQuestion']);
 Route::put('/reponses/{id}', [ReponseController::class, 'putReponsebyId']);
 Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putResponseByQuestionId']);
 Route::get('/displayreponse/{question_id}', [ReponseController::class, 'getResponseByQuestionId']);
+Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage');
+Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseId']);
