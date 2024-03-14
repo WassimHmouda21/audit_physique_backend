@@ -144,5 +144,47 @@ public function getResponseByQuestionId($question_id)
     //         return response()->json(['status' => 404, 'message' => 'No reponses found for the given question'], 404);
     //     }
     // }
-
+    public function createResponseByQuestionId(Request $request, $question_id)
+    {
+        try {
+            // Validate the incoming request data
+            $request->validate([
+                'projet' => 'required|exists:projects,id',
+                'conformite' => 'required|integer',
+                'commentaire' => 'required|string',
+                'site' => 'required|exists:customer_sites,id',
+                // Add more validation rules as needed
+            ]);
+    
+            // Log request data
+            Log::info('Request Data:', $request->all());
+    
+            // Find the question by ID
+            $question = Question::findOrFail($question_id);
+    
+            // Log found question
+            Log::info('Found Question:', $question->toArray());
+    
+            // Create a new response for the question
+            $reponse = new Reponse();
+            $reponse->projet = $request->input('projet');
+            $reponse->question_id = $question_id;
+            $reponse->conformite = $request->input('conformite');
+            $reponse->commentaire = $request->input('commentaire');
+            $reponse->site = $request->input('site');
+            $reponse->save();
+    
+            // Log saved response
+            Log::info('Saved Response:', $reponse->toArray());
+    
+            // Optionally, you can return a response indicating success
+            return response()->json(['message' => 'Response created successfully'], 201);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating response:', ['exception' => $e]);
+    
+            // Optionally, you can return a response indicating failure
+            return response()->json(['message' => 'Failed to create response'], 500);
+        }
+    }
     }

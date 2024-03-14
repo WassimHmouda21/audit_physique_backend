@@ -62,3 +62,4 @@ Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putRespon
 Route::get('/displayreponse/{question_id}', [ReponseController::class, 'getResponseByQuestionId']);
 Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage');
 Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseId']);
+Route::post('/reponses/{question_id}', [ReponseController::class,'createResponseByQuestionId']);
