@@ -76,22 +76,27 @@ public function displayimage()
 }
 public function getImagebyReponseId($reponse_id)
 {
-    // Find the customer by ID
+    // Find the response by ID
     $reponse = Reponse::find($reponse_id);
 
     if (!$reponse) {
-        // Handle the case where the customer is not found
-        return response()->json(['status' => 404, 'message' => 'Customer not found'], 404);
+        // Handle the case where the response is not found
+        return response()->json(['status' => 404, 'message' => 'Response not found'], 404);
     }
 
-    // Retrieve customer_sites associated with the customer
+    // Retrieve images associated with the response
     $images = $reponse->images;
 
     if ($images->count() > 0) {
-        return response()->json(['status' => 200, 'images' => $images], 200);
+        // Return response with images and response ID
+        return response()->json(['status' => 200, 'reponse_id' => $reponse->id, 'images' => $images], 200);
     } else {
-        return response()->json(['status' => 404, 'message' => 'No images found for the given reponseId'], 404);
+        return response()->json(['status' => 404, 'message' => 'No images found for the given response ID'], 404);
     }
 }
+
+
+
+
 
 }
