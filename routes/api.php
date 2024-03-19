@@ -34,8 +34,10 @@ Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 // Route for getSitebyCustomerId method
 Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
 Route::get('/customer_site/{id}', [Customer_sitesController::class, 'getCustomerSiteByID']);
+Route::get('/categorie/{site_id}',[CategorieController::class,'getCategorieBySiteId']);
 Route::get("categories",[CategorieController::class,'index']);
 Route::get("categories/{id}",[CategorieController::class,'getCategorieByID']);
+
 Route::resource('imageadd', 'Api\ImageController@addimage');
 // Show the form to create a new customer
 
@@ -62,4 +64,5 @@ Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putRespon
 Route::get('/displayreponse/{question_id}', [ReponseController::class, 'getResponseByQuestionId']);
 Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage');
 Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseId']);
+Route::delete('/deletimage/{id}', [ImagesController::class, 'deleteImageById']);
 Route::post('/reponses/{question_id}', [ReponseController::class,'createResponseByQuestionId']);

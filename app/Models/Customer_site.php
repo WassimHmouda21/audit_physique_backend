@@ -12,7 +12,7 @@ class Customer_site extends Model
     protected $table = 'customer_sites';
 
     protected $fillable = [
-        'ID',
+        'id',
         'Numero_site',
         'Structure',
         'Lieu',
@@ -29,5 +29,10 @@ class Customer_site extends Model
     {
         return $this->belongsTo(Customer::class, 'Customer_Id', 'id');
     }
+    public function categories()
+    {
+        return $this->hasMany(Categorie::class, 'CustomerSite_Id', 'id');
+    }
+    
     
 }

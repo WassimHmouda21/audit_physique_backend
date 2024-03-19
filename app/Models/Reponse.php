@@ -43,7 +43,7 @@ class Reponse extends Model
 
     public function customer_sites()
     {
-        return $this->belongsTo(Customer_site::class, 'site', 'ID');
+        return $this->belongsTo(Customer_site::class, 'site', 'id');
     }
 
 }

@@ -14,11 +14,16 @@ class Categorie extends Model
     protected $fillable = [
         'id',
         'Nom',
+        'CustomerSite_Id',
    
     ];
 
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+    public function customer_site()
+    {
+        return $this->belongsTo(Customer_site::class, 'CustomerSite_Id', 'id');
     }
 }

@@ -95,7 +95,18 @@ public function getImagebyReponseId($reponse_id)
     }
 }
 
+public function deleteImageById(Request $request, $id)
+    {
+        $image = Image::find($id);
+        
+        if (!$image) {
+            return response()->json(['message' => 'Image not found'], 404);
+        }
 
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted successfully'], 200);
+    }
 
 
 
