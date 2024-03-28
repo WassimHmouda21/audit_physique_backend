@@ -191,4 +191,18 @@ public function getResponseByQuestionId($question_id)
     }
 }
 
+public function deleteReponseById(Request $request, $id)
+    {
+        $reponse = Reponse::find($id);
+        
+        if (!$reponse) {
+            return response()->json(['message' => 'Reponse not found'], 404);
+        }
+
+        $reponse->delete();
+
+        return response()->json(['message' => 'Reponse deleted successfully'], 200);
+    }
+
+
     }

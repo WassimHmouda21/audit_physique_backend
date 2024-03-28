@@ -17,6 +17,7 @@ class Customer_site extends Model
         'Structure',
         'Lieu',
         'Customer_Id',
+        'Project_id'
     ];
 
 
@@ -33,6 +34,9 @@ class Customer_site extends Model
     {
         return $this->hasMany(Categorie::class, 'CustomerSite_Id', 'id');
     }
-    
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'Project_id', 'id');
+    }
     
 }

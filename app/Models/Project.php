@@ -34,6 +34,9 @@ class Project extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
-    
+    public function customer_sites()
+    {
+        return $this->hasMany(Customer_site::class);
+    }
   
 }

@@ -33,6 +33,7 @@ Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 
 // Route for getSitebyCustomerId method
 Route::get('/customer_sites/{customerId}', [Customer_sitesController::class, 'getSitebyCustomerId']);
+Route::get('/project_sites/{projectId}', [Customer_sitesController::class, 'getSitebyProjectId']);
 Route::get('/customer_site/{id}', [Customer_sitesController::class, 'getCustomerSiteByID']);
 Route::get('/categorie/{site_id}',[CategorieController::class,'getCategorieBySiteId']);
 Route::get("categories",[CategorieController::class,'index']);
@@ -66,3 +67,4 @@ Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage
 Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseId']);
 Route::delete('/deletimage/{id}', [ImagesController::class, 'deleteImageById']);
 Route::post('/reponses/{question_id}', [ReponseController::class,'createResponseByQuestionId']);
+Route::delete('/deletreponse/{id}', [ReponseController::class, 'deleteReponseById']);

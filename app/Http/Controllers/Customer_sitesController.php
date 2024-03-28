@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customer_site;
 use App\Models\Customer;
+use App\Models\Project;
 class Customer_sitesController extends Controller
 {
     public function index()
@@ -47,6 +48,25 @@ class Customer_sitesController extends Controller
         }
     }
 
+    public function getSitebyProjectId($projectId)
+    {
+        // Find the project by ID
+        $project = Project::find($projectId);
+
+        if (!$project) {
+            // Handle the case where the project is not found
+            return response()->json(['status' => 404, 'message' => 'Project not found'], 404);
+        }
+
+        // Retrieve project associated with the project
+        $customerSites = $project->customer_sites;
+
+        if ($customerSites->count() > 0) {
+            return response()->json(['status' => 200, 'customer_sites' => $customerSites], 200);
+        } else {
+            return response()->json(['status' => 404, 'message' => 'No project sites found for the given projectId'], 404);
+        }
+    }
 
     public function getCustomerSiteByID($id){
         $customer_sites = Customer_site::find($id);
