@@ -13,7 +13,7 @@ class Reponse extends Model
 
     protected $fillable = [
         'id',
-        'projet',
+        'projet_id',
         'question_id',
         'conformite',
         'commentaire',
@@ -33,7 +33,7 @@ class Reponse extends Model
     
     public function projects()
     {
-        return $this->belongsTo(Project::class, 'project', 'id');
+        return $this->belongsTo(Project::class, 'projet_id', 'id');
     }
 
     public function questions()

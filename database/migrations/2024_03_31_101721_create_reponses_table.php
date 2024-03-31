@@ -15,8 +15,8 @@ class CreateReponsesTable extends Migration
     {
         Schema::create('reponses', function (Blueprint $table) {
             $table->id();          
-            $table->unsignedBigInteger('projet');
-            $table->foreign('projet')->references('id')->on('projects')->onDelete('cascade');
+            $table->unsignedBigInteger('projet_id');
+            $table->foreign('projet_id')->references('id')->on('projects')->onDelete('cascade');
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->integer('conformite');

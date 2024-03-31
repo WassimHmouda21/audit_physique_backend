@@ -47,4 +47,13 @@ class ProjectController extends Controller
                 return response()->json(['status' => 404, 'message' => 'No projects found for the given Customer_Id'], 404);
             }
         }
+
+        public function getProjectByID($id){
+            $project = Project::find($id);
+            if(is_null($project)){
+                return response()->json(['error' => 'Project not found!'], 404);
+            }
+            return response()->json(['project' => $project], 200);
+        }
+        
 }

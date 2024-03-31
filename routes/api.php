@@ -29,6 +29,7 @@ Route::get("/questions", [QuestionController::class, 'index']);
 Route::get('/questions/{categorie_id}', [QuestionController::class, 'getQuestionbyCategorie']);
 Route::get("/projects", [ProjectController::class, 'index']);
 Route::get("/projects/{customerId}", [ProjectController::class, 'getProjectbyCustomerId']);
+Route::get('/projet/{id}',[ProjectController::class, 'getProjectByID']);
 Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 
 // Route for getSitebyCustomerId method

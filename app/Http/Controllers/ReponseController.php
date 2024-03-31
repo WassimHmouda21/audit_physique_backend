@@ -149,7 +149,7 @@ public function getResponseByQuestionId($question_id)
     try {
         // Validate the incoming request data
         $request->validate([
-            'projet' => 'required|exists:projects,id',
+            'projet_id' => 'required|exists:projects,id',
             'conformite' => 'required|integer',
             'commentaire' => 'required|string',
             'site' => 'required|exists:customer_sites,id',
@@ -167,7 +167,7 @@ public function getResponseByQuestionId($question_id)
 
         // Create a new response for the question
         $reponse = new Reponse();
-        $reponse->projet = $request->input('projet');
+        $reponse->projet_id = $request->input('projet_id');
         $reponse->question_id = $question_id;
         $reponse->conformite = $request->input('conformite');
         $reponse->commentaire = $request->input('commentaire');

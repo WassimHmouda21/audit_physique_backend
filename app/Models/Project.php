@@ -25,9 +25,9 @@ class Project extends Model
     ];
 
 
-    public function reponse()
+    public function reponses()
     {
-        return $this->hasMany(reponse::class);
+        return $this->hasMany(Reponse::class, 'projet_id' , 'id');
     }
     public function customer()
     {
