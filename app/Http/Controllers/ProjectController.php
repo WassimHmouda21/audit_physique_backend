@@ -55,5 +55,25 @@ class ProjectController extends Controller
             }
             return response()->json(['project' => $project], 200);
         }
-        
+     
+        public function updateProject(Request $request, $projectId)
+    {
+        try {
+            // Find the project by ID
+            $project = Project::findOrFail($projectId);
+            
+            // Update the is_submitted attribute to true
+            $project->is_submitted = true;
+            
+            // Save the changes
+            $project->save();
+            
+            // Return success response
+            return response()->json(['message' => 'Project updated successfully'], 200);
+        } catch (\Exception $e) {
+            // Return error response if any error occurs
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

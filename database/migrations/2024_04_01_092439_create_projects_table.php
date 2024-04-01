@@ -25,7 +25,8 @@ class CreateProjectsTable extends Migration
             $table->text('QualityCheckedDateTime');
             $table->text('QualityCheckedMessage');
             $table->string('Preuve');
-         
+            $table->boolean('is_submitted')->default(false); // Add the boolean attribute
+            $table->timestamps();
         });
     }
 

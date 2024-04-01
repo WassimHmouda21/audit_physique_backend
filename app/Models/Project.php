@@ -21,7 +21,8 @@ class Project extends Model
         'QualityChecked',
         'QualityCheckedDateTime',
         'QualityCheckedMessage',
-        'Preuve'
+        'Preuve',
+        'is_submitted'
     ];
 
 
