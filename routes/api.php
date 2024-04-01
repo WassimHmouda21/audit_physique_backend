@@ -31,6 +31,7 @@ Route::get("/projects", [ProjectController::class, 'index']);
 Route::get("/projects/{customerId}", [ProjectController::class, 'getProjectbyCustomerId']);
 Route::get('/projet/{id}',[ProjectController::class, 'getProjectByID']);
 Route::post('/updateproj/{id}',[ProjectController::class, 'updateProject']);
+Route::get('/getprojsubmit',[ProjectController::class, 'getSubmittedProjects']);
 Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 
 // Route for getSitebyCustomerId method

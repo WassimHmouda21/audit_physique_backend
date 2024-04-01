@@ -75,5 +75,10 @@ class ProjectController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    public function getSubmittedProjects()
+    {
+        $projects = Project::where('is_submitted', true)->get();
 
+        return response()->json(['projects' => $projects], 200);
+    }
 }
