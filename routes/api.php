@@ -11,6 +11,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\Predefined_observationsController;
 use App\Http\Controllers\ReponseController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +33,7 @@ Route::get("/projects/{customerId}", [ProjectController::class, 'getProjectbyCus
 Route::get('/projet/{id}',[ProjectController::class, 'getProjectByID']);
 Route::post('/updateproj/{id}',[ProjectController::class, 'updateProject']);
 Route::get('/getprojsubmit',[ProjectController::class, 'getSubmittedProjects']);
+Route::get('/getprojunsubmit',[ProjectController::class, 'getUnSubmittedProjects']);
 Route::get("/customer_sites", [Customer_sitesController::class, 'index']);
 
 // Route for getSitebyCustomerId method
@@ -71,3 +73,4 @@ Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseI
 Route::delete('/deletimage/{id}', [ImagesController::class, 'deleteImageById']);
 Route::post('/reponses/{question_id}', [ReponseController::class,'createResponseByQuestionId']);
 Route::delete('/deletreponse/{id}', [ReponseController::class, 'deleteReponseById']);
+Route::post('/send-reclamation-email', [UserController::class, 'sendReclamationEmail']);
