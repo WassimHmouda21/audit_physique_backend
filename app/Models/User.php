@@ -10,13 +10,20 @@ class User extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
         'bith',
-        'adress',
+        'address',
+        'role',
         'isEmailVerified'
     ];
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class, 'Customer_Id', 'id');
+    }
 
     // Define relationships, such as with other models, if needed
 }

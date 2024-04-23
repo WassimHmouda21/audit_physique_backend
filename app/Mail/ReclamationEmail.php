@@ -32,13 +32,15 @@ class ReclamationEmail extends Mailable
      */
     public function build()
     {
+        $description = "We are writing to bring to your attention about recent audit surveys.In fact , we have issues during our survey process.";
+    
         return $this->subject('New Reclamation')
-        ->view('emails.reclamation')
-        ->with([
-            'subject' => $this->subject,
-            'description' => $this->description,
-        ]);
-
+            ->view('emails.reclamation')
+            ->with([
+                'subject' => $this->subject,
+                'description' => $description,
+            ]);
     }
+    
     
 }
