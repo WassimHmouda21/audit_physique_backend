@@ -211,38 +211,40 @@ class CustomerController extends Controller
     //     return view('customer')->with('customers', $customer);
     // }
     public function sstoree(Request $request)
-{
-    // Validate incoming request data if needed
-
-    $customer = new Customer();
-
-    $customer->SN = $request->input('SN');
-    $customer->LN = $request->input('LN');
-
-    if ($request->hasFile('Logo')) {
-        $logoPath = $request->file('Logo');
-        $extension = $logoPath->getClientOriginalExtension();
-        $filename = time() . '.' . $extension;
-        $logoPath->move('assets/', $filename);
-        $customer->Logo = $filename;
-    } else {
-        $customer->Logo = '';
+    
+    {
+        // Validate incoming request data if needed
+    
+        $customer = new Customer();
+    
+        $customer->SN = $request->input('SN');
+        $customer->LN = $request->input('LN');
+    
+        if ($request->hasFile('Logo')) {
+            $logoPath = $request->file('Logo');
+            $extension = $logoPath->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $logoPath->move('assets/', $filename);
+            $customer->Logo = $filename;
+        } else {
+            $customer->Logo = '';
+        }
+    
+        $customer->Description = $request->input('Description');
+        $customer->SecteurActivite = $request->input('SecteurActivite');
+        $customer->Categorie = $request->input('Categorie');
+        $customer->Site_Web = $request->input('Site_Web');
+        $customer->Adresse_mail = $request->input('Adresse_mail');
+        $customer->Organigramme = $request->input('Organigramme');
+        $customer->Network_Design = $request->input('Network_Design');
+        $customer->Type = $request->input('Type');
+    
+        $customer->save();
+    
+        // Return the newly created customer as a response
+        return response()->json(['message' => 'Customer created successfully', 'customer' => $customer], 201);
     }
-
-    $customer->Description = $request->input('Description');
-    $customer->SecteurActivite = $request->input('SecteurActivite');
-    $customer->Categorie = $request->input('Categorie');
-    $customer->Site_Web = $request->input('Site_Web');
-    $customer->Adresse_mail = $request->input('Adresse_mail');
-    $customer->Organigramme = $request->input('Organigramme');
-    $customer->Network_Design = $request->input('Network_Design');
-    $customer->Type = $request->input('Type');
-
-    $customer->save();
-
-    // Return the newly created customer as a response
-    return response()->json(['message' => 'Customer created successfully', 'customer' => $customer], 201);
-}
+    
 
 
     public function getCustomerByID($id){
