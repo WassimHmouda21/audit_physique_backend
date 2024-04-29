@@ -24,6 +24,7 @@ class CreateCustomersitesTable extends Migration
          
             $table->unsignedBigInteger('Project_id');
             $table->foreign('Project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Log;
+
 class ProjectController extends Controller
 {
     //
@@ -88,4 +90,45 @@ class ProjectController extends Controller
 
         return response()->json(['projects' => $projects], 200);
     }
+
+    public function storeProject(Request $request, $customerId)
+    {
+        try {
+            $validatedData = $request->validate([
+                'Nom' => 'required|string',
+                'URL' => 'required|string',
+                'Description' => 'required|string',
+                'customer_id' => 'required|exists:customers,id', // Ensure customer exists
+                'year' => 'required|string',
+                'QualityChecked' => 'required|integer',
+                'QualityCheckedDateTime' => 'required|string',
+                'QualityCheckedMessage' => 'required|string',
+                'Preuve' => 'required|string',
+                'is_submitted' => 'required|boolean'
+            ]);
+    
+            // Log validated data
+            Log::info('Validated Data:', $validatedData);
+    
+            // Create a new project instance
+            $project = Project::create($validatedData);
+    
+            // Log saved response
+            Log::info('Saved Project:', $project->toArray());
+    
+            // Return the created project along with a success message
+            return response()->json([
+                'message' => 'Project created successfully',
+                'project' => $project
+            ], 201);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating project:', ['exception' => $e]);
+    
+            // Return failure response
+            return response()->json(['message' => 'Failed to create project'], 500);
+        }
+    }
+    
+
 }

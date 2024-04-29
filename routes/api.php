@@ -80,3 +80,5 @@ Route::post('/custom-login', [UserController::class, 'customLogin']);
 Route::post('/registration', [UserController::class, 'registration']);
 Route::middleware(HandleCors::class)->post('/custom-registration', [UserController::class, 'stttoree']);
 Route::get('/signout', [UserController::class, 'signOut']);
+Route::middleware(HandleCors::class)->post('/create_project/{customerId}', [ProjectController::class, 'storeProject']);
+Route::middleware(HandleCors::class)->post('/create_site/{Customer_Id}/{Project_id}', [Customer_sitesController::class, 'storeSite']);

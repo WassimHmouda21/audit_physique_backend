@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer_site;
 use App\Models\Customer;
 use App\Models\Project;
+use Illuminate\Support\Facades\Log;
+
 class Customer_sitesController extends Controller
 {
     public function index()
@@ -75,6 +77,40 @@ class Customer_sitesController extends Controller
         }
         return response()->json($customer_sites, 200);
     }
-
+    public function storeSite(Request $request, $Customer_Id , $Project_id)
+    { 
+        try {
+            $validatedData = $request->validate([
+                'Numero_site' => 'required|integer',
+                'Structure' => 'required|string',
+                'Lieu' => 'required|string',
+                'Customer_Id' => 'required|exists:customers,id', // Ensure customer exists
+                'Project_id' => 'required|exists:projects,id'
+             
+            ]);
+    
+            // Log validated data
+            Log::info('Validated Data:', $validatedData);
+    
+            // Create a new project instance
+            $customer_site = Customer_site::create($validatedData);
+    
+            // Log saved response
+            Log::info('Saved Customer_site:', $customer_site->toArray());
+    
+            // Return the created project along with a success message
+            return response()->json([
+                'message' => 'Customer_site created successfully',
+                'customer_site' => $customer_site
+            ], 201);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating Customer_site:', ['exception' => $e]);
+    
+            // Return failure response
+            return response()->json(['message' => 'Failed to create Customer_site'], 500);
+        }
+    }
+    
 
 }
