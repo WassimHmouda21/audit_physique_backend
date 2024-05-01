@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('Nom');
             $table->unsignedBigInteger('CustomerSite_Id');
             $table->foreign('CustomerSite_Id')->references('id')->on('customer_sites')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
