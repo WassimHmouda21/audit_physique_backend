@@ -83,3 +83,4 @@ Route::get('/signout', [UserController::class, 'signOut']);
 Route::middleware(HandleCors::class)->post('/create_project/{customerId}', [ProjectController::class, 'storeProject']);
 Route::middleware(HandleCors::class)->post('/create_site/{Customer_Id}/{Project_id}', [Customer_sitesController::class, 'storeSite']);
 Route::middleware(HandleCors::class)->post('/create_categories/{sourceCustomerSiteId}/{targetCustomerSiteId}', [CategorieController::class, 'insertCategoriesToCustomerSite']);
+Route::middleware(HandleCors::class)->post('/create_questions/{sourceCategorieId}/{targetCategorieId}', [QuestionController::class, 'insertQuestionsToCategorie']);
