@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
-
+use App\Models\User;
 class CustomerController extends Controller
 {
     public function index()
@@ -169,16 +169,38 @@ class CustomerController extends Controller
         }
     }
 
-    public function display()
+    // public function display()
+    // {
+    //     // $customers = Customer::all();
+    //     // return view('customerform')->with('customers', $customers);
+    //     $customers = Customer::all();
+    //     //return view('customer.index', compact('customers'));
+    //     return response()->json([
+    //         'customers' => $customers ],200);
+    // }
+    public function getCustomerByUserId($User_id)
     {
-        // $customers = Customer::all();
-        // return view('customerform')->with('customers', $customers);
-        $customers = Customer::all();
-        //return view('customer.index', compact('customers'));
-        return response()->json([
-            'customers' => $customers ],200);
-    }
+        // Find the response by ID
+        $user = User::find($User_id);
+    
+        if (!$user) {
+            // Handle the case where the response is not found
+            return response()->json(['status' => 404, 'message' => 'user not found'], 404);
+        }
+    
+        // Retrieve images associated with the response
+        $customers = $user->customers;
+    
+        if ($customers->count() > 0) {
+            // Return response with images and response ID
+            return response()->json(['status' => 200, 'User_id' => $user->id, 'customers' => $customers], 200);
+        } else {
+            return response()->json(['status' => 404, 'message' => 'No images found for the given User_id'], 404);
+        }
+    
+    }     
 
+    
     // public function sstoree(Request $request)
     // {
     //     $customer = new Customer();
@@ -210,7 +232,7 @@ class CustomerController extends Controller
     
     //     return view('customer')->with('customers', $customer);
     // }
-    public function sstoree(Request $request)
+    public function sstoree(Request $request,$User_id)
     
     {
         // Validate incoming request data if needed
@@ -231,6 +253,7 @@ class CustomerController extends Controller
         }
     
         $customer->Description = $request->input('Description');
+        $customer->user_id = $User_id;
         $customer->SecteurActivite = $request->input('SecteurActivite');
         $customer->Categorie = $request->input('Categorie');
         $customer->Site_Web = $request->input('Site_Web');

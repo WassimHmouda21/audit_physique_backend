@@ -60,7 +60,7 @@ Route::get('/customers/{id}/edit', [CustomerController::class, 'edit'])->name('c
 
 Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customers.update');
 Route::get('/customer/{id}',[CustomerController::class, 'getCustomerByID']);
-Route::get('/customerpage', [CustomerController::class, 'display'])->name('customer.display');
+Route::get('/customerpage/{User_id}', [CustomerController::class, 'getCustomerByUserId'])->name('customer.getCustomerByUserId');
 Route::get('/imageshow',[ImagesController::class, 'displayimage']);
 // Route::post('/addIma', [ImagesController::class, 'addImage']);
 Route::middleware(HandleCors::class)->post('/addIma', [ImagesController::class, 'addImage']);
@@ -68,7 +68,7 @@ Route::get('/predefined_observation/{question}', [Predefined_observationsControl
 Route::put('/reponses/{id}', [ReponseController::class, 'putReponsebyId']);
 Route::put('/updatereponse/{question_id}', [ReponseController::class, 'putResponseByQuestionId']);
 Route::get('/displayreponse/{question_id}', [ReponseController::class, 'getResponseByQuestionId']);
-Route::post('/addImage', [CustomerController::class, 'sstoree'])->name('addImage');
+Route::post('/addImage/{User_id}', [CustomerController::class, 'sstoree'])->name('addImage');
 Route::get('/images/{reponse_id}', [ImagesController::class, 'getImagebyReponseId']);
 Route::delete('/deletimage/{id}', [ImagesController::class, 'deleteImageById']);
 Route::post('/reponses/{question_id}', [ReponseController::class,'createResponseByQuestionId']);

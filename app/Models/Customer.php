@@ -17,6 +17,7 @@ class Customer extends Model
         'LN',
         'Logo',
         'Description',
+        'user_id',
         'SecteurActivite',
         'Categorie',
         'Site_Web',
@@ -35,6 +36,9 @@ class Customer extends Model
     {
         return $this->hasMany(Project::class);
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
    
 }

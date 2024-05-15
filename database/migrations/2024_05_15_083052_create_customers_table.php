@@ -22,6 +22,8 @@ class CreateCustomersTable extends Migration
             $table->string('LN');
             $table->string('Logo');
             $table->text('Description');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('SecteurActivite');
             $table->string('Categorie');
             $table->string('Site_Web');

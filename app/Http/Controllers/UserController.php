@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Hash; 
 class UserController extends Controller
 {
     //
@@ -47,15 +47,40 @@ public function index()
     return response()->json(['message' => 'Please login'], 200);
 }
 
+// public function customLogin(Request $request)
+// {
+//     // Validate incoming request data
+//     $request->validate([
+//         'email' => 'required|string|email',
+//         'password' => 'required|string',
+//     ]);
+
+//     $credentials = $request->only('email', 'password');
+    
+//     if (Auth::attempt($credentials)) {
+//         // Authentication passed...
+//         return response()->json(['message' => 'Signed in'], 200);
+//     }
+
+//     return response()->json(['error' => 'Email address or password is incorrect.'], 401);
+// }
+
 public function customLogin(Request $request)
 {
+    // Validate incoming request data
+    $request->validate([
+        'email' => 'required|string|email',
+        'password' => 'required|string',
+    ]);
+
     $credentials = $request->only('email', 'password');
     
     if (Auth::attempt($credentials)) {
         // Authentication passed...
-        return response()->json(['message' => 'Signed in'], 200);
+        $user = Auth::user(); // Get the authenticated user
+        return response()->json(['message' => 'Signed in', 'user_id' => $user->id], 200);
     }
-    
+
     return response()->json(['error' => 'Email address or password is incorrect.'], 401);
 }
 
@@ -117,7 +142,7 @@ public function stttoree(Request $request)
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = Hash::make($request->input('password')); 
         $user->birth = $request->input('birth');
         $user->address = $request->input('address');
         $user->role = $request->input('role');

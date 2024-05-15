@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password',
@@ -20,10 +21,17 @@ class User extends Model
         'isEmailVerified'
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public function customers()
     {
-        return $this->hasMany(Customer::class, 'Customer_Id', 'id');
+        return $this->hasMany(Customer::class, 'user_id', 'id');
     }
-
-    // Define relationships, such as with other models, if needed
 }
