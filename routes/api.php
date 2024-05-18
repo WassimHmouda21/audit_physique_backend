@@ -12,6 +12,7 @@ use App\Http\Controllers\Predefined_observationsController;
 use App\Http\Controllers\ReponseController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\UserController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -84,3 +85,10 @@ Route::middleware(HandleCors::class)->post('/create_project/{customerId}', [Proj
 Route::middleware(HandleCors::class)->post('/create_site/{Customer_Id}/{Project_id}', [Customer_sitesController::class, 'storeSite']);
 Route::middleware(HandleCors::class)->post('/create_categories/{sourceCustomerSiteId}/{targetCustomerSiteId}', [CategorieController::class, 'insertCategoriesToCustomerSite']);
 Route::middleware(HandleCors::class)->post('/create_questions/{sourceCategorieId}/{targetCategorieId}', [QuestionController::class, 'insertQuestionsToCategorie']);
+
+// Route::post('/custom-login', [UserController::class, 'customLogin']);
+// Route::post('/registration', [UserController::class, 'registration']);
+// Route::middleware(HandleCors::class)->post('/custom-registration', [UserController::class, 'stttoree']);
+
+Route::post('/auth/register', [UserController::class, 'stttoree']);
+Route::post('/auth/login', [UserController::class, 'customLogin']);

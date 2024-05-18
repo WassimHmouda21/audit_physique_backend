@@ -191,12 +191,13 @@ class CustomerController extends Controller
         // Retrieve images associated with the response
         $customers = $user->customers;
     
-        if ($customers->count() > 0) {
+        if ($customers !== null && $customers->count() > 0) {
             // Return response with images and response ID
             return response()->json(['status' => 200, 'User_id' => $user->id, 'customers' => $customers], 200);
         } else {
             return response()->json(['status' => 404, 'message' => 'No images found for the given User_id'], 404);
         }
+        
     
     }     
 

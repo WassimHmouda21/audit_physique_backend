@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash; 
@@ -64,115 +65,142 @@ public function index()
 
 //     return response()->json(['error' => 'Email address or password is incorrect.'], 401);
 // }
-
 public function customLogin(Request $request)
 {
-    // Validate incoming request data
-    $request->validate([
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-    ]);
+    try {
+        $validateUser = Validator::make($request->all(), 
+        [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-    $credentials = $request->only('email', 'password');
-    
-    if (Auth::attempt($credentials)) {
-        // Authentication passed...
-        $user = Auth::user(); // Get the authenticated user
-        return response()->json(['message' => 'Signed in', 'user_id' => $user->id], 200);
+        if($validateUser->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
+
+        if(!Auth::attempt($request->only(['email', 'password']))){
+            return response()->json([
+                'status' => false,
+                'message' => 'Email & Password does not match with our record.',
+            ], 401);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User Logged In Successfully',
+            'token' => $user->createToken("API TOKEN")->plainTextToken,
+            'user_id' => $user->id
+        ], 200);
+
+    } catch (\Throwable $th) {
+        return response()->json([
+            'status' => false,
+            'message' => $th->getMessage()
+        ], 500);
     }
-
-    return response()->json(['error' => 'Email address or password is incorrect.'], 401);
 }
 
-public function registration()
-{
-    return response()->json(['message' => 'Registration endpoint'], 200);
-}
+
 
 // public function stttoree(Request $request)
-// {
-//     // Validate incoming request data if needed
+// {    
+//     try {
+//         // Validate the incoming request data
+//         $request->validate([
+//             'name' => 'required|string',
+//             'email' => 'required|string|email|unique:users',
+//             'password' => 'required|string|min:8',
+//             'birth' => 'required|date_format:Y-m-d',
+//             'address' => 'required|string',
+//             'role' => 'required|string',
+//         ]);
 
-//     $user = new User();
+//         // Log request data
+//         Log::info('Request Data:', $request->all());
 
-//     $user->name = $request->input('name');
-//     $user->email = $request->input('email');
+//         // Create a new user instance
+//         $user = new User();
+//         $user->name = $request->input('name');
+//         $user->email = $request->input('email');
+//         $user->password = Hash::make($request->input('password')); 
+//         $user->birth = $request->input('birth');
+//         $user->address = $request->input('address');
+//         $user->role = $request->input('role');
+//         $user->save();
 
-//     $user->password = $request->input('password');
-//     $user->birth = $request->input('birth');
-//     $user->address = $request->input('address');
-//     $user->role = $request->input('role');
-//     $user->isEmailVerified = $request->input('isEmailVerified');
+//         // Log saved response
+//         Log::info('Saved Response:', $user->toArray());
 
+//         // Generate a token
+//         $token = $user->createToken('auth_token')->plainTextToken;
 
-//     $user->save();
-
-//     // Return the newly created user as a response
-//     return response()->json(['message' => 'user created successfully', 'user' => $user], 201);
+//         // Return the created user along with a success message and token
+//         return response()->json([
+//             'message' => 'User created successfully',
+//             'user' => $user,
+//             'token' => $token
+//         ], 201);
+//     } catch (ValidationException $e) {
+//         // Log the validation error
+//         Log::error('Validation Error:', ['errors' => $e->errors()]);
+//         return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
+//     } catch (\Exception $e) {
+//         // Log the error
+//         Log::error('Error creating user:', ['exception' => $e]);
+//         return response()->json(['message' => 'Failed to create user'], 500);
+//     }
 // }
-
 public function stttoree(Request $request)
 {    
     try {
         // Validate the incoming request data
-        // $request->validate([
-        //     'name' =>  'required|string',
-        //     'email' => 'required|string',
-        //     'password' => 'required|string',
-        //     'birth' => 'required|date',
-        //     'address' =>  'required|string',
-        //     'role' => 'required|string',
-        //     'isEmailVerified' => 'required|boolean',
-        // ]);
-        $request->validate([
-            'name' =>  'required|string',
-            'email' => 'required|string',
+        $validateUser = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string',
-            'birth' => 'required|date',
-            'address' =>  'required|string',
-            'role' => 'required|string',
-            // 'isEmailVerified' => 'required|boolean',
+      
         ]);
         
-
-        // Log request data
-        Log::info('Request Data:', $request->all());
+        if($validateUser->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
 
         // Create a new user instance
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password')); 
-        $user->birth = $request->input('birth');
-        $user->address = $request->input('address');
-        $user->role = $request->input('role');
-        // $user->isEmailVerified = $request->input('isEmailVerified');
-    
-        // Save the user
-        $user->save();
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+      
+        ]); 
 
-        // Log saved response
-        Log::info('Saved Response:', $user->toArray());
+        // Save the user and generate a token
+        $token = $user->createToken('API Token')->plainTextToken;
 
-        // Return the created user along with a success message
+        // Return response with token
         return response()->json([
+            'status' => true,
             'message' => 'User created successfully',
-            'user' => $user
-        ], 201);
-    } catch (ValidationException $e) {
-        // Log the validation error
-        Log::error('Validation Error:', ['exception' => $e->getMessage()]);
-        
-        // Return validation error response
-        return response()->json(['message' => $e->getMessage()], 422);
-    } catch (\Exception $e) {
-        // Log the error
-        Log::error('Error creating user:', ['exception' => $e]);
-
-        // Return failure response
-        return response()->json(['message' => 'Failed to create user'], 500);
+            'token' => $token
+        ], 200);
+    
+    } catch (\Throwable $th)  {
+        return response()->json([
+            'status' => false,
+            'message' => 'Error creating user: ' . $th->getMessage()
+        ], 500);
     }
 }
+
 
 
 
