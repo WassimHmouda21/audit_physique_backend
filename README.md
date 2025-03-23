@@ -15,13 +15,13 @@ The Physique Audit Mobile Application is designed for auditors to visit customer
 
 -Complaint Email – Send audit-related complaints via email.
 
-Tech Stack
+## **Tech Stack**
 
 Frontend:
 
 React Native (JavaScript)
 
-## **Backend:**
+Backend:
 
 Laravel (PHP Framework)
 
